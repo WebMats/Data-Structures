@@ -142,4 +142,12 @@ class DoublyLinkedList:
     pass
     
   def get_max(self):
+    cur_value = self.head
+    cur_max = 0
+    print('HERE: ', cur_value)
+    while(not cur_value == None):
+      if cur_value.value > cur_max:
+        cur_max = cur_value.value
+      cur_value = cur_value.next
+    return cur_max
     pass
