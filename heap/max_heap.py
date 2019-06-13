@@ -9,11 +9,10 @@ class Heap:
     pass
 
   def delete(self):
-    print('FIRST: ', self.storage)
     top = self.storage[0]
     if len(self.storage) == 1:
       self.storage = []
-      return
+      return top
     self.storage = [self.storage[-1], *self.storage[1: -1]]
     self._sift_down(0)
     return top
@@ -38,24 +37,20 @@ class Heap:
     pass
 
   def _sift_down(self, index):
-    print(self.storage)
     if len(self.storage) < 2:
       return 
     left_i = 2 * index + 1
     right_i = left_i + 1
-    sifted = False
     next_i = None
-    if len(self.storage) -1 >= left_i and self.storage[left_i] > self.storage[index]:
-      sifted = True
-      self.storage[left_i], self.storage[index] = self.storage[index], self.storage[left_i]
-      next_i = left_i
-    elif len(self.storage) - 1 >= right_i and self.storage[right_i] > self.storage[index]:
+    if len(self.storage) - 1 >= right_i and self.storage[right_i] > self.storage[index] and self.storage[right_i] > self.storage[left_i]:
       self.storage[right_i], self.storage[index] = self.storage[index], self.storage[right_i]
       next_i = right_i
+    elif len(self.storage) - 1 >= left_i and self.storage[left_i] > self.storage[index]:
+      self.storage[left_i], self.storage[index] = self.storage[index], self.storage[left_i]
+      next_i = left_i
     else:
       return
-    if len(self.storage) - 1 >= right_i and self.storage[right_i] > self.storage[left_i] and sifted:
-      self.storage[right_i], self.storage[left_i] = self.storage[left_i], self.storage[right_i]
+    next_i = left_i if not next_i else next_i
     self._sift_down(next_i)
     pass
 
